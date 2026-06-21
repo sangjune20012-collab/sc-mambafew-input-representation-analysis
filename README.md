@@ -7,7 +7,7 @@ This repository provides the implementation for analyzing how different signal-t
 This work does **not** propose a new SC-MambaFew architecture. Instead, it keeps the SC-MambaFew backbone fixed and compares six input representations under clean and noisy CWRU bearing fault diagnosis conditions.
 
 <p align="center">
-  <img src="assets/figure1_method_overview.png" width="850">
+  <img src="assets/figure1_method_overview.png" width="100%">
 </p>
 
 ## Paper Information
@@ -22,6 +22,7 @@ This work does **not** propose a new SC-MambaFew architecture. Instead, it keeps
 - **Dataset:** CWRU Bearing Dataset
 - **Keywords:** Few-shot Learning, Bearing Fault Diagnosis, Mamba, SC-MambaFew, Input Representation, CWRU, Time-series-to-image, Industrial Equipment Diagnosis
 
+
 ## Overview
 
 Few-shot bearing fault diagnosis is important in industrial environments where labeled fault data are limited. SC-MambaFew performs few-shot diagnosis by combining Mamba-based spatial modeling, selective spatial-channel attention, and covariance metric learning.
@@ -29,7 +30,7 @@ Few-shot bearing fault diagnosis is important in industrial environments where l
 The original SC-MambaFew setting mainly uses a Spectrogram (SP) representation. This repository extends the input stage and compares six signal-to-image representations:
 
 <p align="center">
-  <img src="assets/figure2_input_representations.png" width="700">
+  <img src="assets/figure2_input_representations.png" width="850">
 </p>
 
 | Abbreviation | Representation | Description |
