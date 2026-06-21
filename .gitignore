@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Environments
+.venv/
+venv/
+env/
+*.conda
+*.egg-info/
+
+# Data
+CWRU/
+data/
+HUST_bearing/
+*.zip
+*.mat
+*.csv
+
+# Outputs
+outputs/
+checkpoints/
+checkpoints4096/
+testcm/
+timeseries_images/
+runs/
+logs/
+*.pth
+*.pt
+*.ckpt
+
+# External libraries / builds
+mamba/
+build/
+dist/
+*.egg-info/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large files
+*.deb
+*.tar
+*.gz
+*.7z
+*.rar
