@@ -1,24 +1,40 @@
 # SC-MambaFew Input Representation Analysis
 
-This repository provides the implementation for **input representation analysis in SC-MambaFew-based few-shot bearing fault diagnosis**.
+> Input representation analysis for SC-MambaFew-based few-shot bearing fault diagnosis.
 
-The purpose of this repository is not to propose a new SC-MambaFew backbone. Instead, this project analyzes how different signal-to-image input representations affect few-shot bearing fault diagnosis performance under clean and noisy conditions.
+This repository provides the implementation for analyzing how different signal-to-image input representations affect few-shot bearing fault diagnosis performance using an SC-MambaFew-based backbone.
+
+This work does **not** propose a new SC-MambaFew architecture. Instead, it keeps the SC-MambaFew backbone fixed and compares six input representations under clean and noisy CWRU bearing fault diagnosis conditions.
 
 <p align="center">
   <img src="assets/figure1_method_overview.png" width="850">
 </p>
 
-## Paper
+## Paper Information
 
-**Optimal Input Representation Analysis for Few-shot Learning in Mamba-based Industrial Equipment Fault Diagnosis Model**
+- **Title:** Optimal Input Representation Analysis for Few-shot Learning in Mamba-based Industrial Equipment Fault Diagnosis Model
+- **Korean Title:** Mamba 기반 설비 고장 진단 모델의 Few-shot 학습을 위한 최적 입력 표현 분석
+- **Paper Type:** Conference paper
+- **Conference:** ISET 2026
+- **Task:** Few-shot bearing fault diagnosis and input representation analysis
+- **Backbone Model:** SC-MambaFew
+- **Input Representations:** SP, SC, GS, RP, MTF, GAF
+- **Dataset:** CWRU Bearing Dataset
+- **Keywords:** Few-shot Learning, Bearing Fault Diagnosis, Mamba, SC-MambaFew, Input Representation, CWRU, Time-series-to-image, Industrial Equipment Diagnosis
 
-**Authors**: Jae Yeong Min, Sang Jun Park, Jun-Seok Yun, Yejin Kim, Min Su Kim, Jong Pil Yun
+## Repository Information
+
+- **Repository Name:** `sc-mambafew-input-representation-analysis`
+- **Description:** Input representation analysis for SC-MambaFew-based few-shot bearing fault diagnosis.
+- **Main Purpose:** Compare signal-to-image representations for Mamba-based few-shot fault diagnosis.
+- **Recommended Topics:**  
+  `few-shot-learning`, `bearing-fault-diagnosis`, `mamba`, `sc-mambafew`, `input-representation`, `cwru`, `time-series-to-image`, `fault-diagnosis`, `industrial-ai`, `pytorch`
 
 ## Overview
 
-Few-shot bearing fault diagnosis is useful when labeled fault data are limited. SC-MambaFew uses Mamba-based spatial modeling, selective spatial-channel attention, and covariance metric learning to classify bearing faults from a small support set.
+Few-shot bearing fault diagnosis is important in industrial environments where labeled fault data are limited. SC-MambaFew performs few-shot diagnosis by combining Mamba-based spatial modeling, selective spatial-channel attention, and covariance metric learning.
 
-In this work, the model backbone is kept fixed and the input representation is changed. Six signal-to-image representations are compared:
+The original SC-MambaFew setting mainly uses a Spectrogram (SP) representation. This repository extends the input stage and compares six signal-to-image representations:
 
 <p align="center">
   <img src="assets/figure2_input_representations.png" width="700">
@@ -33,11 +49,11 @@ In this work, the model backbone is kept fixed and the input representation is c
 | MTF | Markov Transition Field | Transition-probability-based representation |
 | GAF | Gramian Angular Field | Angular temporal correlation representation |
 
-## Difference from the official SC-MambaFew repository
+## Difference from the Official SC-MambaFew Repository
 
-| Item | Official SC-MambaFew | This repository |
+| Item | Official SC-MambaFew | This Repository |
 |---|---|---|
-| Main objective | Few-shot bearing fault diagnosis model | Input representation analysis using the SC-MambaFew backbone |
+| Main objective | Few-shot bearing fault diagnosis model | Input representation analysis using SC-MambaFew |
 | Input representation | Mainly Spectrogram | SP, SC, GS, RP, MTF, GAF |
 | Resolution setting | Fixed setting | 64×64 and 128×128 |
 | Noise setting | Not the main focus | Clean and Gaussian noise 10 dB |
@@ -118,7 +134,7 @@ The raw CWRU `.mat` files are not included in this repository.
 
 ## Results
 
-### Table 1. Performance under clean data conditions
+### Table 1. Performance under Clean Data Conditions
 
 | Representation | Shot | Accuracy 64×64 (%) | Accuracy 128×128 (%) | F1 64×64 (%) | F1 128×128 (%) |
 |---|---:|---:|---:|---:|---:|
@@ -135,9 +151,9 @@ The raw CWRU `.mat` files are not included in this repository.
 | MTF | 1 | 17.5 | 24.1 | 17.5 | 24.1 |
 | MTF | 5 | 36.3 | 38.3 | 35.1 | 36.6 |
 
-Under clean data conditions, **SP** achieved the highest accuracy and F1 score across both 1-shot and 5-shot settings. This indicates that the STFT-based spectrogram remains highly effective when the vibration signal is relatively clean.
+Under clean data conditions, **SP** achieved the highest accuracy and F1 score across both 1-shot and 5-shot settings. This indicates that the STFT-based spectrogram is highly effective when the vibration signal is relatively clean.
 
-### Table 2. Performance under Gaussian noise 10 dB
+### Table 2. Performance under Gaussian Noise 10 dB
 
 | Representation | Shot | Accuracy 64×64 (%) | Accuracy 128×128 (%) | F1 64×64 (%) | F1 128×128 (%) |
 |---|---:|---:|---:|---:|---:|
@@ -148,14 +164,14 @@ Under clean data conditions, **SP** achieved the highest accuracy and F1 score a
 | GS | 1 | 44.7 | 81.0 | 44.7 | 81.0 |
 | GS | 5 | 83.1 | 87.3 | 83.1 | 87.3 |
 
-Under Gaussian noise 10 dB, **SC** and **GS** showed stronger robustness than SP. In particular, GS at 128×128 achieved the highest 5-shot performance under noise, while SC maintained stable performance across both resolutions.
+Under Gaussian noise 10 dB, **SC** and **GS** showed stronger robustness than SP. GS at 128×128 achieved the highest 5-shot performance under noise, while SC maintained stable performance across both resolutions.
 
 ## Key Observations
 
-- **Clean condition**: SP is the most effective representation.
-- **Noise condition**: SC and GS are more robust than SP.
-- **Resolution effect**: GS benefits significantly from 128×128 resolution.
-- **Representation dependency**: The optimal input representation changes depending on noise level, resolution, and shot setting.
+- **Clean condition:** SP is the most effective representation.
+- **Noise condition:** SC and GS are more robust than SP.
+- **Resolution effect:** GS benefits significantly from 128×128 resolution.
+- **Representation dependency:** The optimal input representation changes depending on noise level, resolution, and shot setting.
 
 ## Installation
 
@@ -174,7 +190,7 @@ pip install mamba-ssm
 
 ## Training
 
-### 1-shot example
+### 1-shot Example
 
 ```bash
 python train.py \
@@ -188,7 +204,7 @@ python train.py \
   --path_weights checkpoints
 ```
 
-### 5-shot example
+### 5-shot Example
 
 ```bash
 python train.py \
@@ -211,7 +227,7 @@ bash scripts/train.sh 5 SC 128 10
 
 ## Evaluation
 
-### Clean evaluation
+### Clean Evaluation
 
 ```bash
 python test.py \
@@ -224,7 +240,7 @@ python test.py \
   --best_weight checkpoints/cwru_1shot_64_SP/best.pth
 ```
 
-### Gaussian noise 10 dB evaluation
+### Gaussian Noise 10 dB Evaluation
 
 ```bash
 python test.py \
