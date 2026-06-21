@@ -22,14 +22,6 @@ This work does **not** propose a new SC-MambaFew architecture. Instead, it keeps
 - **Dataset:** CWRU Bearing Dataset
 - **Keywords:** Few-shot Learning, Bearing Fault Diagnosis, Mamba, SC-MambaFew, Input Representation, CWRU, Time-series-to-image, Industrial Equipment Diagnosis
 
-## Repository Information
-
-- **Repository Name:** `sc-mambafew-input-representation-analysis`
-- **Description:** Input representation analysis for SC-MambaFew-based few-shot bearing fault diagnosis.
-- **Main Purpose:** Compare signal-to-image representations for Mamba-based few-shot fault diagnosis.
-- **Recommended Topics:**  
-  `few-shot-learning`, `bearing-fault-diagnosis`, `mamba`, `sc-mambafew`, `input-representation`, `cwru`, `time-series-to-image`, `fault-diagnosis`, `industrial-ai`, `pytorch`
-
 ## Overview
 
 Few-shot bearing fault diagnosis is important in industrial environments where labeled fault data are limited. SC-MambaFew performs few-shot diagnosis by combining Mamba-based spatial modeling, selective spatial-channel attention, and covariance metric learning.
