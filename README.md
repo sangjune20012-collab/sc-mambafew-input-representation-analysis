@@ -1,14 +1,21 @@
 # SC-MambaFew Input Representation Analysis
 
-> Input representation analysis for SC-MambaFew-based few-shot bearing fault diagnosis.
+> A controlled empirical study of signal-to-image input representations for few-shot bearing fault diagnosis with a fixed SC-MambaFew backbone.
 
-This repository provides the implementation for analyzing how different signal-to-image input representations affect few-shot bearing fault diagnosis performance using an SC-MambaFew-based backbone.
+This repository presents a systematic analysis of the input-representation stage in Mamba-based few-shot bearing fault diagnosis. With the SC-MambaFew backbone, training protocol, and dataset held fixed, six signal-to-image representations are compared across two spatial resolutions, two shot regimes, and clean and noisy operating conditions on the CWRU bearing dataset.
 
-This work does **not** propose a new SC-MambaFew architecture. Instead, it keeps the SC-MambaFew backbone fixed and compares six input representations under clean and noisy CWRU bearing fault diagnosis conditions.
+The study proceeds in two stages. The first stage establishes a representation-level comparison under clean conditions, isolating the effect of the time-series-to-image encoding on few-shot accuracy. The second stage extends this comparison to a noise-corrupted regime (10 dB Gaussian noise), motivated by the signal degradation characteristic of real industrial acquisition. This progression from clean-condition representation analysis to noise-robustness analysis constitutes the central contribution of this work, and reveals that the optimal representation is condition-dependent rather than fixed — a design factor left unexamined in the original SC-MambaFew work, which relies primarily on the spectrogram representation.
 
 <p align="center">
   <img src="assets/figure1_method_overview.png" width="100%">
 </p>
+
+## Contributions
+
+- **Representation-centric formulation.** Isolation of the input-representation stage as the single controlled variable, with the SC-MambaFew backbone, optimization protocol, and data splits held fixed throughout.
+- **Comprehensive representation set.** A unified comparison of six time-series-to-image encodings (SP, SC, GS, RP, MTF, GAF) spanning time–frequency, direct-mapping, and dynamical-system families.
+- **Extension to noise robustness.** A progression from clean-condition representation analysis to a 10 dB Gaussian-noise regime that reflects realistic industrial signal degradation, evaluated at 64×64 and 128×128 resolutions across 1-shot and 5-shot regimes.
+- **Empirical guidelines.** Identification of condition-dependent representation choices — the spectrogram for clean signals, and scalogram and gray-scale encoding for noisy signals.
 
 ## Paper Information
 
@@ -25,9 +32,9 @@ This work does **not** propose a new SC-MambaFew architecture. Instead, it keeps
 
 ## Overview
 
-Few-shot bearing fault diagnosis is important in industrial environments where labeled fault data are limited. SC-MambaFew performs few-shot diagnosis by combining Mamba-based spatial modeling, selective spatial-channel attention, and covariance metric learning.
+Few-shot bearing fault diagnosis targets industrial settings with scarce labeled fault data. SC-MambaFew addresses this regime through a combination of Mamba-based spatial modeling, selective spatial-channel attention, and covariance-based metric learning.
 
-The original SC-MambaFew setting mainly uses a Spectrogram (SP) representation. This repository extends the input stage and compares six signal-to-image representations:
+The original SC-MambaFew formulation adopts the spectrogram (SP) as its default input. This work systematically varies that single design choice, evaluating six signal-to-image representations under a common backbone and protocol:
 
 <p align="center">
   <img src="assets/figure2_input_representations.png" width="850">
@@ -42,16 +49,16 @@ The original SC-MambaFew setting mainly uses a Spectrogram (SP) representation. 
 | MTF | Markov Transition Field | Transition-probability-based representation |
 | GAF | Gramian Angular Field | Angular temporal correlation representation |
 
-## Difference from the Official SC-MambaFew Repository
+## Scope Relative to the Official SC-MambaFew Repository
 
 | Item | Official SC-MambaFew | This Repository |
 |---|---|---|
-| Main objective | Few-shot bearing fault diagnosis model | Input representation analysis using SC-MambaFew |
-| Input representation | Mainly Spectrogram | SP, SC, GS, RP, MTF, GAF |
-| Resolution setting | Fixed setting | 64×64 and 128×128 |
-| Noise setting | Not the main focus | Clean and Gaussian noise 10 dB |
+| Primary objective | Few-shot bearing fault diagnosis model | Input-representation analysis on a fixed SC-MambaFew backbone |
+| Input representation | Primarily spectrogram | SP, SC, GS, RP, MTF, GAF |
+| Resolution setting | Fixed resolution | 64×64 and 128×128 |
+| Noise setting | Outside main focus | Clean and 10 dB Gaussian noise |
 | Dataset setting | CWRU and HUST | CWRU 12DriveEndFault |
-| Contribution focus | Model architecture | Effect of input representation on few-shot diagnosis |
+| Analytical focus | Model architecture | Effect of input representation on few-shot diagnosis |
 
 ## Method
 
@@ -144,7 +151,7 @@ The raw CWRU `.mat` files are not included in this repository.
 | MTF | 1 | 17.5 | 24.1 | 17.5 | 24.1 |
 | MTF | 5 | 36.3 | 38.3 | 35.1 | 36.6 |
 
-Under clean data conditions, **SP** achieved the highest accuracy and F1 score across both 1-shot and 5-shot settings. This indicates that the STFT-based spectrogram is highly effective when the vibration signal is relatively clean.
+Under clean conditions, **SP** attains the highest accuracy and F1 across both 1-shot and 5-shot settings, confirming the effectiveness of the STFT-based spectrogram for low-noise vibration signals.
 
 ### Table 2. Performance under Gaussian Noise 10 dB
 
@@ -157,7 +164,7 @@ Under clean data conditions, **SP** achieved the highest accuracy and F1 score a
 | GS | 1 | 44.7 | 81.0 | 44.7 | 81.0 |
 | GS | 5 | 83.1 | 87.3 | 83.1 | 87.3 |
 
-Under Gaussian noise 10 dB, **SC** and **GS** showed stronger robustness than SP. GS at 128×128 achieved the highest 5-shot performance under noise, while SC maintained stable performance across both resolutions.
+Under 10 dB Gaussian noise, **SC** and **GS** exhibit markedly stronger robustness than SP. GS at 128×128 yields the highest 5-shot performance under noise, whereas SC sustains stable accuracy across both resolutions.
 
 ## Key Observations
 
