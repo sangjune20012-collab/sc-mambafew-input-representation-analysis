@@ -4,7 +4,12 @@
 
 This repository presents a systematic analysis of the input-representation stage in Mamba-based few-shot bearing fault diagnosis. With the SC-MambaFew backbone, training protocol, and dataset held fixed, six signal-to-image representations are compared across two spatial resolutions, two shot regimes, and clean and noisy operating conditions on the CWRU bearing dataset.
 
-The study proceeds in two stages. The first stage establishes a representation-level comparison under clean conditions, isolating the effect of the time-series-to-image encoding on few-shot accuracy. The second stage extends this comparison to a noise-corrupted regime (10 dB Gaussian noise), motivated by the signal degradation characteristic of real industrial acquisition. This progression from clean-condition representation analysis to noise-robustness analysis constitutes the central contribution of this work, and reveals that the optimal representation is condition-dependent rather than fixed — a design factor left unexamined in the original SC-MambaFew work, which relies primarily on the spectrogram representation.
+The study proceeds in two stages:
+
+- **Stage 1 — Representation comparison (clean).** A representation-level comparison under clean conditions, isolating the effect of the time-series-to-image encoding on few-shot accuracy.
+- **Stage 2 — Representation comparison under noise.** The same comparison repeated under a 10 dB Gaussian-noise condition, revealing how the ranking of representations shifts once the signal is degraded.
+
+The central contribution is this cross-representation view: rather than fixing the spectrogram as in the original SC-MambaFew work, this study shows that the optimal representation is condition-dependent, with the best clean-condition choice differing from the most noise-robust one.
 
 <p align="center">
   <img src="assets/figure1_method_overview.png" width="100%">
@@ -12,10 +17,12 @@ The study proceeds in two stages. The first stage establishes a representation-l
 
 ## Contributions
 
-- **Representation-centric formulation.** Isolation of the input-representation stage as the single controlled variable, with the SC-MambaFew backbone, optimization protocol, and data splits held fixed throughout.
-- **Comprehensive representation set.** A unified comparison of six time-series-to-image encodings (SP, SC, GS, RP, MTF, GAF) spanning time–frequency, direct-mapping, and dynamical-system families.
-- **Extension to noise robustness.** A progression from clean-condition representation analysis to a 10 dB Gaussian-noise regime that reflects realistic industrial signal degradation, evaluated at 64×64 and 128×128 resolutions across 1-shot and 5-shot regimes.
-- **Empirical guidelines.** Identification of condition-dependent representation choices — the spectrogram for clean signals, and scalogram and gray-scale encoding for noisy signals.
+This work makes the following contributions:
+
+- **A controlled input-representation benchmark.** We reformulate SC-MambaFew evaluation around the input stage, fixing the backbone, optimization protocol, and data splits so that the time-series-to-image encoding becomes the single controlled variable.
+- **A unified six-representation comparison.** We integrate six encodings (SP, SC, GS, RP, MTF, GAF) — spanning time–frequency, direct-mapping, and dynamical-system families — into one training and evaluation pipeline and compare them on equal footing.
+- **A cross-representation robustness comparison (the core contribution).** We evaluate all six representations under a single 10 dB Gaussian-noise condition at 64×64 and 128×128 resolutions, quantifying how the accuracy ranking of representations changes relative to the clean setting.
+- **Condition-dependent representation guidelines.** We show that the optimal representation is not fixed but shifts with the operating condition — the spectrogram under clean signals, and the scalogram and gray-scale encoding under noise.
 
 ## Paper Information
 
@@ -56,7 +63,7 @@ The original SC-MambaFew formulation adopts the spectrogram (SP) as its default 
 | Primary objective | Few-shot bearing fault diagnosis model | Input-representation analysis on a fixed SC-MambaFew backbone |
 | Input representation | Primarily spectrogram | SP, SC, GS, RP, MTF, GAF |
 | Resolution setting | Fixed resolution | 64×64 and 128×128 |
-| Noise setting | Outside main focus | Clean and 10 dB Gaussian noise |
+| Noise setting | Gaussian noise, per-model robustness | Single 10 dB Gaussian-noise condition, compared across six representations |
 | Dataset setting | CWRU and HUST | CWRU 12DriveEndFault |
 | Analytical focus | Model architecture | Effect of input representation on few-shot diagnosis |
 
